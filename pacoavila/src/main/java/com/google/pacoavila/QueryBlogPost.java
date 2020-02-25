@@ -27,10 +27,6 @@ public class QueryBlogPost extends HttpServlet {
     List<BlogPost> posts = getPosts();
     req.setAttribute("posts", posts);
     req.getRequestDispatcher("index.jsp").forward(req, resp);
-    // PrintWriter out = resp.getWriter();
-    // for (BlogPost post : posts) {
-    //   out.printf("Retrieved %s: %s by %s%n", post.title, post.description, post.author);
-    // }
   }
 
   public static List<BlogPost> getPosts() {

@@ -9,9 +9,19 @@ public class BlogPost {
   static final String AUTHOR_KEY = "author";
   static final String DESCRIPTION_KEY = "description";
 
-  public String title;
-  public String author;
-  public String description;
+  private String title;
+  private String author;
+  private String description;
+
+  public String getTitle() {
+    return title;
+  }
+  public String getAuthor() {
+    return author;
+  }
+  public String getDescription() {
+    return description;
+  }
 
   public BlogPost(Entity entity) {
     title = entity.getString(TITLE_KEY);
