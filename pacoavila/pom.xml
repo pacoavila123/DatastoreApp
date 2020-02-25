@@ -22,6 +22,18 @@
     <maven>3.5</maven>
   </prerequisites>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>libraries-bom</artifactId>
+        <version>3.0.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <!-- Compile/runtime dependencies -->
     <dependency>
@@ -61,6 +73,11 @@
       <artifactId>appengine-tools-sdk</artifactId>
       <version>1.9.59</version>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-datastore</artifactId>
     </dependency>
 
     <dependency>
