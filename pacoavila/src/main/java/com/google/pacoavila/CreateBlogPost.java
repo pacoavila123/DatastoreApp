@@ -1,3 +1,5 @@
+package com.google.pacoavila;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.annotation.WebServlet;
@@ -15,9 +17,12 @@ import com.google.cloud.datastore.Key;
 @WebServlet(name = "CreateBlogPost", value="/create")
 public class CreateBlogPost extends HttpServlet {
 
-  private static final String TITLE_KEY = "title";
-  private static final String AUTHOR_KEY = "author";
-  private static final String DESCRIPTION_KEY = "description";
+  @Override
+  public void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+
+    req.getRequestDispatcher("createBlogPost.jsp").forward(req, resp);
+  }
 
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -26,27 +31,30 @@ public class CreateBlogPost extends HttpServlet {
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
 
     String kind = "Task";
-    String title = req.getParameter(TITLE_KEY);
-    String author = req.getParameter(AUTHOR_KEY);
-    String description = req.getParameter(DESCRIPTION_KEY);
+    String title = req.getParameter(BlogPost.TITLE_KEY);
+    String author = req.getParameter(BlogPost.AUTHOR_KEY);
+    String description = req.getParameter(BlogPost.DESCRIPTION_KEY);
 
-    // The Cloud Datastore key for the new entity
+    // The Cloud Datastore key for the new entitytitle
     Key taskKey = datastore.newKeyFactory().setKind(kind).newKey(title);
 
     // Prepares the new entity
     Entity task = Entity.newBuilder(taskKey)
-        .set(DESCRIPTION_KEY, description)
+        .set(BlogPost.TITLE_KEY, title)
+        .set(BlogPost.AUTHOR_KEY, author)
+        .set(BlogPost.DESCRIPTION_KEY, description)
         .build();
 
     // Saves the entity
     datastore.put(task);
 
-    System.out.printf("Saved %s: %s%n", task.getKey().getName(), task.getString(DESCRIPTION_KEY));
+    System.out.printf("Saved %s: %s%n", task.getString(BlogPost.TITLE_KEY), task.getString(BlogPost.DESCRIPTION_KEY));
 
     //Retrieve entity
     Entity retrieved = datastore.get(taskKey);
 
     PrintWriter out = resp.getWriter();
-    out.printf("Retrieved %s: %s%n", taskKey.getName(), retrieved.getString(DESCRIPTION_KEY));
+    out.printf("Retrieved %s: %s%n", taskKey.getName(), retrieved.getString(BlogPost.DESCRIPTION_KEY));
+    req.getRequestDispatcher("index.jsp").forward(req, resp);
   }
 }

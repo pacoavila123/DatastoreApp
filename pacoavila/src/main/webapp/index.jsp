@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.google.pacoavila.HelloAppEngine" %>
+<%@ page import="com.google.pacoavila.BlogPost" %>
+<%@ page import="com.google.api.client.util.Lists" %>
+<%@ page import="java.util.List" %>
 <html>
 <head>
   <link href='//fonts.googleapis.com/css?family=Marmelad' rel='stylesheet' type='text/css'>
@@ -16,34 +19,19 @@
     </tr>
     <tr>
       <td><a href='/hello'>Hello App Engine</a></td>
+      <td><a href='/create'>Create Blog Post</a></td>
     </tr>
   </table>
   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
   <div class="container">
-    <h2>
-      Create a new blog post
-    </h2>
-
-    <form method="POST" action="/create">
-
-      <div>
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title" size="40" value="${fn:escapeXml(blog.title)}" class="form-control" />
-      </div>
-
-      <div>
-        <label for="author">Author</label>
-        <input type="text" name="author" id="author" size="40" value="${fn:escapeXml(blog.author)}" class="form-control" />
-      </div>
-
-      <div>
-        <label for="description">Post content</label>
-        <textarea name="description" id="description" rows="10" cols="50" class="form-control">${fn:escapeXml(blog.content)}</textarea>
-      </div>
-
-      <button type="submit">Save</button>
-    </form>
+    <c:forEach items="${posts}" var="p">
+        <tr>
+            <td>Title: <c:out value="${p.title}"/></td>
+            <td>Author: <c:out value="${p.author}"/></td>
+            <td>Description: <c:out value="${p.description}"/></td>
+        </tr>
+    </c:forEach>
   </div>
 
 </body>
