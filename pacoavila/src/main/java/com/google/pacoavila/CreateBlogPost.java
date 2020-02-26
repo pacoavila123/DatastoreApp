@@ -1,5 +1,8 @@
 package com.google.pacoavila;
 
+import com.google.cloud.datastore.FullEntity;
+import com.google.cloud.datastore.IncompleteKey;
+import com.google.cloud.datastore.KeyFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.annotation.WebServlet;
@@ -35,26 +38,24 @@ public class CreateBlogPost extends HttpServlet {
     String author = req.getParameter(BlogPost.AUTHOR_KEY);
     String description = req.getParameter(BlogPost.DESCRIPTION_KEY);
 
-    // The Cloud Datastore key for the new entitytitle
-    Key taskKey = datastore.newKeyFactory().setKind(kind).newKey(title);
-
     // Prepares the new entity
-    Entity task = Entity.newBuilder(taskKey)
+    IncompleteKey incompleteKey = datastore.newKeyFactory().setKind(kind).newKey();
+    FullEntity post = FullEntity.newBuilder(incompleteKey)
         .set(BlogPost.TITLE_KEY, title)
         .set(BlogPost.AUTHOR_KEY, author)
         .set(BlogPost.DESCRIPTION_KEY, description)
         .build();
 
     // Saves the entity
-    datastore.put(task);
+    Key key = datastore.add(post).getKey();
 
-    System.out.printf("Saved %s: %s%n", task.getString(BlogPost.TITLE_KEY), task.getString(BlogPost.DESCRIPTION_KEY));
+    System.out.printf("Saved %s: %s%n", post.getString(BlogPost.TITLE_KEY), post.getString(BlogPost.DESCRIPTION_KEY));
 
     //Retrieve entity
-    Entity retrieved = datastore.get(taskKey);
+    Entity retrieved = datastore.get(key);
 
     PrintWriter out = resp.getWriter();
-    out.printf("Retrieved %s: %s%n", taskKey.getName(), retrieved.getString(BlogPost.DESCRIPTION_KEY));
+    out.printf("Retrieved %s: %s%n", key.getName(), retrieved.getString(BlogPost.DESCRIPTION_KEY));
     req.getRequestDispatcher("index.jsp").forward(req, resp);
   }
 }

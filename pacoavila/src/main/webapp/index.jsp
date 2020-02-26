@@ -33,6 +33,7 @@
     <!-- Main Content -->
     <div class="container">
       <div class="row">
+        <a href="/create" class="btn btn-primary">Post About Dogs!</a>
         <div class="col-lg-8 col-md-10 mx-auto">
           <c:forEach items="${posts}" var="p">
             <div class="post-preview">
@@ -51,6 +52,7 @@
             <hr>
            </c:forEach>
           </div>
+
           <!-- Pager -->
           <div class="clearfix">
             <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>

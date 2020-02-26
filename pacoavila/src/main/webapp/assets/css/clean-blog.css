@@ -191,7 +191,7 @@ header.masthead .page-heading,
 header.masthead .post-heading,
 header.masthead .site-heading {
   padding: 200px 0 150px;
-  color: black;
+  color: #03fcfc;
 }
 
 @media only screen and (min-width: 768px) {
