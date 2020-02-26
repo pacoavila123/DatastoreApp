@@ -61,12 +61,4 @@ public class TheDogBlogTest {
         .named("TheDogBlog response")
         .contains("Hello App Engine - Standard ");
   }
-
-  @Test
-  public void helloInfoTest() {
-    String result = TheDogBlog.getInfo();
-    assertThat(result)
-      .named("HelloInfo.getInfo")
-        .contains("canine");
-  }
 }

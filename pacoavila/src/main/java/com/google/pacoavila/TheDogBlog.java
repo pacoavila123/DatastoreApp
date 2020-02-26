@@ -23,9 +23,4 @@ public class TheDogBlog extends HttpServlet {
     response.getWriter().println("Hello App Engine - Standard using "
         + SystemProperty.version.get() + " Java " + properties.get("java.specification.version"));
   }
-
-  public static String getInfo() {
-    return "The one stop shop to discuss all things canine!";
-  }
-
 }
