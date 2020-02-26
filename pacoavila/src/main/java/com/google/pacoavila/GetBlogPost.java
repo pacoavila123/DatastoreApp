@@ -24,14 +24,23 @@ public class GetBlogPost extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-      MemcacheService cache = MemcacheServiceFactory.getMemcacheService();
-      cache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
+    MemcacheService cache = MemcacheServiceFactory.getMemcacheService();
+    cache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
 
-      Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-      String id = req.getParameter("id");
-      Key key = datastore.newKeyFactory().setKind(BlogPost.KIND_KEY).newKey(Long.valueOf(id));
-      Entity e = datastore.get(key);
-      req.setAttribute("post", new BlogPost(e));
-      req.getRequestDispatcher("post.jsp").forward(req, resp);
+    Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+    String id = req.getParameter("id");
+    Key key = datastore.newKeyFactory().setKind(BlogPost.KIND_KEY).newKey(Long.valueOf(id));
+
+    Entity e;
+    Object cachedVal = cache.get(key.getId().toString());
+    if (cachedVal == null) {
+      e = datastore.get(key);
+    } else {
+      e = (Entity) cachedVal;
     }
+
+    cache.put(key.getId().toString(), e);
+    req.setAttribute("post", new BlogPost(e));
+    req.getRequestDispatcher("post.jsp").forward(req, resp);
   }
+}
