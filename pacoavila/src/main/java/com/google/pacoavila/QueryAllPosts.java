@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet(name = "QueryBlogPost", value="/")
-public class QueryBlogPost extends HttpServlet {
+@WebServlet(name = "QueryAllPosts", value="/")
+public class QueryAllPosts extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -41,9 +41,6 @@ public class QueryBlogPost extends HttpServlet {
     if (SystemProperty.environment.value() == Value.Development) {
       return new ArrayList<>();
     }
-
-    MemcacheService cache = MemcacheServiceFactory.getMemcacheService();
-    cache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
 
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
     StructuredQuery<Entity> query = Query.newEntityQueryBuilder().setKind(BlogPost.KIND_KEY).build();

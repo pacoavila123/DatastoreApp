@@ -1,6 +1,7 @@
 package com.google.pacoavila;
 
 import com.google.cloud.datastore.Entity;
+import javax.annotation.Nonnull;
 
 public class BlogPost {
 
@@ -9,10 +10,14 @@ public class BlogPost {
   static final String AUTHOR_KEY = "author";
   static final String DESCRIPTION_KEY = "description";
 
+  private String id;
   private String title;
   private String author;
   private String description;
 
+  public String getId() {
+    return id;
+  }
   public String getTitle() {
     return title;
   }
@@ -23,7 +28,10 @@ public class BlogPost {
     return description;
   }
 
-  public BlogPost(Entity entity) {
+  public BlogPost(@Nonnull Entity entity) {
+    if (entity.hasKey()) {
+      id = Long.toString(entity.getKey().getId());
+    }
     title = entity.getString(TITLE_KEY);
     author = entity.getString(AUTHOR_KEY);
     description = entity.getString(DESCRIPTION_KEY);

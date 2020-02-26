@@ -3,6 +3,8 @@ The Dog Blog
 
 This is a starter project using Cloud Firestore in Datastore Mode, Memcached, and JSP.
 
+URL: https://paco-project-268923.appspot.com/
+
 ## Setup
 
     gcloud init
