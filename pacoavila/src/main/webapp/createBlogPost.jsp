@@ -13,7 +13,6 @@
     </h2>
 
     <form method="POST" action="/create">
-
       <div>
         <label for="title">Title</label>
         <input type="text" name="title" id="title" size="40" value="${fn:escapeXml(blog.title)}" class="form-control" />

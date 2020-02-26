@@ -46,7 +46,6 @@ public class CreateBlogPost extends HttpServlet {
         .set(BlogPost.DESCRIPTION_KEY, description)
         .build();
 
-    // Saves the entity
     Key key = datastore.add(post).getKey();
 
     System.out.printf("Saved %s: %s%n", post.getString(BlogPost.TITLE_KEY), post.getString(BlogPost.DESCRIPTION_KEY));
@@ -56,6 +55,6 @@ public class CreateBlogPost extends HttpServlet {
 
     PrintWriter out = resp.getWriter();
     out.printf("Retrieved %s: %s%n", key.getName(), retrieved.getString(BlogPost.DESCRIPTION_KEY));
-    req.getRequestDispatcher("index.jsp").forward(req, resp);
+    resp.sendRedirect("");
   }
 }
