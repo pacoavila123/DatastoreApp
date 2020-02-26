@@ -33,28 +33,22 @@ public class CreateBlogPost extends HttpServlet {
 
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
 
-    String kind = "Task";
     String title = req.getParameter(BlogPost.TITLE_KEY);
     String author = req.getParameter(BlogPost.AUTHOR_KEY);
     String description = req.getParameter(BlogPost.DESCRIPTION_KEY);
 
     // Prepares the new entity
-    IncompleteKey incompleteKey = datastore.newKeyFactory().setKind(kind).newKey();
+    IncompleteKey incompleteKey = datastore.newKeyFactory().setKind(BlogPost.KIND_KEY).newKey();
     FullEntity post = FullEntity.newBuilder(incompleteKey)
         .set(BlogPost.TITLE_KEY, title)
         .set(BlogPost.AUTHOR_KEY, author)
         .set(BlogPost.DESCRIPTION_KEY, description)
         .build();
 
-    Key key = datastore.add(post).getKey();
+    Entity postWithId = datastore.add(post);
 
-    System.out.printf("Saved %s: %s%n", post.getString(BlogPost.TITLE_KEY), post.getString(BlogPost.DESCRIPTION_KEY));
+    System.out.printf("Saved %s: %s%n", postWithId.getString(BlogPost.TITLE_KEY), postWithId.getString(BlogPost.DESCRIPTION_KEY));
 
-    //Retrieve entity
-    Entity retrieved = datastore.get(key);
-
-    PrintWriter out = resp.getWriter();
-    out.printf("Retrieved %s: %s%n", key.getName(), retrieved.getString(BlogPost.DESCRIPTION_KEY));
     resp.sendRedirect("");
   }
 }

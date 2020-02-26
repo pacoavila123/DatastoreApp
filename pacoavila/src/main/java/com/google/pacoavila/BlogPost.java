@@ -4,7 +4,7 @@ import com.google.cloud.datastore.Entity;
 
 public class BlogPost {
 
-  static final String KIND_KEY = "Task";
+  static final String KIND_KEY = "blog-post";
   static final String TITLE_KEY = "title";
   static final String AUTHOR_KEY = "author";
   static final String DESCRIPTION_KEY = "description";

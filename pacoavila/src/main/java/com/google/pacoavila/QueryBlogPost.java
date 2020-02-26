@@ -30,12 +30,12 @@ public class QueryBlogPost extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    List<BlogPost> posts = getPosts();
+    List<BlogPost> posts = getAllPosts();
     req.setAttribute("posts", posts);
     req.getRequestDispatcher("index.jsp").forward(req, resp);
   }
 
-  public static List<BlogPost> getPosts() {
+  public static List<BlogPost> getAllPosts() {
 
     // TODO(pacoavila) This can be removed if the local development server is running.
     if (SystemProperty.environment.value() == Value.Development) {

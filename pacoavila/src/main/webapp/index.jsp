@@ -37,7 +37,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <c:forEach items="${posts}" var="p">
             <div class="post-preview">
-              <a href="post.html">
+              <a href="#">
                 <h2 class="post-title">
                   <c:out value="${p.getTitle()}"/>
                 </h2>

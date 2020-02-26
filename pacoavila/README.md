@@ -20,3 +20,9 @@ This is a starter project using Cloud Firestore in Datastore Mode, Memcached, an
 ## Testing
 
     mvn verify
+
+## Documentation Used
+
+Appengine Getting Started [https://cloud.google.com/appengine/docs/standard/java/quickstart]
+Using Cloud Firestore in Datastore Mode [https://cloud.google.com/appengine/docs/standard/java/using-cloud-datastore]
+Using Memcache [https://cloud.google.com/appengine/docs/standard/java/memcache/using]
